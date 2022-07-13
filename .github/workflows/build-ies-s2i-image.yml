@@ -43,7 +43,7 @@ jobs:
         image: ies-s2i-image
         tags: v1 ${{ github.sha }}
         containerfiles: |
-          ./Dockerfile
+          ./14/Dockerfile
 
       # Push the image to GHCR (Image Registry)
     - name: Push To GHCR
