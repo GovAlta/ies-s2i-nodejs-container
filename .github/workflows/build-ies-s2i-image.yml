@@ -35,7 +35,7 @@ jobs:
         ls -laR ./14
 
     - name: Buildah Action
-      id: build-image
+      id: build_image
       uses: redhat-actions/buildah-build@v2
       with:
         context: |
