@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 env:
-    IMAGE_NAME: ies-s2i-image
+    IMAGE_NAME: ies-s2i-nodejs-container
     IMAGE_TAGS: dev ${{ github.sha }}
     IMAGE_REGISTRY: ghcr.io/${{ github.actor }}
     REGISTRY_USER: ${{ github.actor }}
@@ -38,8 +38,8 @@ jobs:
       with:
         context: |
           ./14
-        image: ies-s2i-image
-        tags: v1 ${{ github.sha }}
+        image: ${{ env.IMAGE_NAME }}
+        tags: ${{ env.IMAGE_TAGS }}
         containerfiles: |
           ./14/Dockerfile
 
