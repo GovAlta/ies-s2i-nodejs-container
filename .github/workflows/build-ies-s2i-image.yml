@@ -3,7 +3,7 @@ name: Build Custom IES s2i image (with ghostscript)
 on:
   push:
     branches:
-      - master
+      - ies-s2i-nodejs-container
     paths:
       - ".github/workflows/build-ies-s2i-image.yml"
       - "14"
