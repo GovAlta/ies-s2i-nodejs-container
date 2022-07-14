@@ -72,17 +72,30 @@ RUN echo "ls before npm install" && \
 
 RUN echo "pwd and ls ." && \
     pwd && \
-    ls .
+    ls -R ./
 
 COPY ./package.json $HOME/
 COPY ./package-lock.json $HOME/
 
 RUN echo "ls after package.json copy" && \
     echo $HOME && \
-	ls $HOME
+	ls -R $HOME
 
 RUN  npm install -g @nrwl/cli@12.9.0
+
+RUN echo "ls after nrwl/cli copy" && \
+    echo $HOME && \
+	ls -R $HOME
+
 RUN  npm install -g node-gyp
+
+RUN echo "ls after node-gyp" && \
+    echo $HOME && \
+	ls -R $HOME
+
+RUN echo "ls opt/rh/rh-nodejs14" && \
+    ls -R /opt/rh/rh-nodejs14/root/usr/lib/
+
 RUN  npm ci
 
 RUN echo "ls after npm install" && \
