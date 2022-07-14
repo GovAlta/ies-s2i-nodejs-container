@@ -114,7 +114,8 @@ RUN echo "mv node_modules to /tmp/artifacts and tidy up" && \
     mkdir -p /tmp/artifacts && \
     mv $HOME/node_modules /tmp/artifacts/ && \
 	rm $HOME/package.json && \
-	rm $HOME/package-lock.json
+	ls /tmp/artifacts
+	#rm $HOME/package-lock.json
 
 # Drop the root user and make the content of /opt/app-root owned by user 1001
 RUN chown -R 1001:0 ${APP_ROOT} && chmod -R ug+rwx ${APP_ROOT} && \
