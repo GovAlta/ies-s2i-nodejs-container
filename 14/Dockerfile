@@ -87,7 +87,7 @@ RUN echo "location of npm global" && \
 
 RUN  npm install -g @nrwl/cli@12.9.0
 
-RUN  npm install -g @nrwl/workspace
+RUN  npm install -g @nrwl/workspace@12.9.0
 
 RUN echo "ls after nrwl/cli copy" && \
     echo $HOME && \
