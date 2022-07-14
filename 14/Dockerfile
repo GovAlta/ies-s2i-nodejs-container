@@ -81,9 +81,9 @@ RUN echo "ls after package.json copy" && \
     echo $HOME && \
 	ls $HOME
 
-RUN  npm install -g @nrwl/cli@12.9.0 && \
-     npm install -g node-gyp && \
-     npm ci
+RUN  npm install -g @nrwl/cli@12.9.0
+RUN  npm install -g node-gyp
+RUN  npm ci
 
 RUN echo "ls after npm install" && \
     ls $HOME && \
