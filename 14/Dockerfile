@@ -75,7 +75,8 @@ RUN echo "pwd and ls ." && \
     ls -R ./
 
 COPY ./package.json $HOME/
-COPY ./package-lock.json $HOME/
+#COPY ./package-lock.json $HOME/
+COPY ./decorate-angular-cli.js $HOME/
 
 RUN echo "ls after package.json copy" && \
     echo $HOME && \
