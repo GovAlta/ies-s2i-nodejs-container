@@ -67,10 +67,15 @@ COPY ./s2i/bin/ $STI_SCRIPTS_PATH
 COPY ./root/ /
 
 RUN echo "ls before npm install" && \
-    ls $HOME
+    echo $HOME && \
+	ls $HOME
 
-COPY ./package.json $HOME/ && \
-     ./package-lock.json $HOME/
+RUN echo "pwd and ls ." && \
+    pwd && \
+    ls .
+
+COPY ./package.json $HOME/
+COPY ./package-lock.json $HOME/
 
 RUN  npm install -g @nrwl/cli@12.9.0 && \
      npm install -g node-gyp && \
