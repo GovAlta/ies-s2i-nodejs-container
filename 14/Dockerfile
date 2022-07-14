@@ -1,5 +1,5 @@
 FROM quay.io/centos7/s2i-core-centos7
-
+USER root
 # This image provides a Node.JS environment you can use to run your Node.JS
 # applications.
 
