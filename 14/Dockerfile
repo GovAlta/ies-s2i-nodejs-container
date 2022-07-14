@@ -74,12 +74,11 @@ RUN echo "pwd and ls ." && \
     pwd && \
     ls -R ./
 
-RUN sed -i 's/postinstall/donotrun/' package.json
-RUN grep postinstall package.json
-
 COPY ./package.json $HOME/
+RUN sed -i 's/postinstall/donotrun/' $HOME/package.json
+RUN grep postinstall $HOME/package.json
 #COPY ./package-lock.json $HOME/
-COPY ./decorate-angular-cli.js $HOME/
+#COPY ./decorate-angular-cli.js $HOME/
 
 RUN echo "ls after package.json copy" && \
     echo $HOME && \
