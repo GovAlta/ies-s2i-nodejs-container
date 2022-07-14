@@ -76,7 +76,7 @@ RUN echo "pwd and ls ." && \
 
 COPY ./package.json $HOME/
 RUN sed -i 's/postinstall/donotrun/' $HOME/package.json
-RUN grep postinstall $HOME/package.json
+RUN grep donotrun $HOME/package.json
 #COPY ./package-lock.json $HOME/
 #COPY ./decorate-angular-cli.js $HOME/
 
