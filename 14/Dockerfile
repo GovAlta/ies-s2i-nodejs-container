@@ -74,6 +74,9 @@ RUN echo "pwd and ls ." && \
     pwd && \
     ls -R ./
 
+RUN sed -i 's/postinstall/donotrun/' package.json
+RUN grep postinstall package.json
+
 COPY ./package.json $HOME/
 #COPY ./package-lock.json $HOME/
 COPY ./decorate-angular-cli.js $HOME/
