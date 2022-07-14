@@ -81,6 +81,9 @@ RUN echo "ls after package.json copy" && \
     echo $HOME && \
 	ls -R $HOME
 
+RUN echo "location of npm global" && \
+    npm root -g
+
 RUN  npm install -g @nrwl/cli@12.9.0
 
 RUN echo "ls after nrwl/cli copy" && \
@@ -94,9 +97,9 @@ RUN echo "ls after node-gyp" && \
 	ls -R $HOME
 
 RUN echo "ls opt/rh/rh-nodejs14" && \
-    ls -R /opt/rh/rh-nodejs14/root/usr/lib/
+    ls -ld /opt/rh/rh-nodejs14/root/usr/lib/node_modules
 
-RUN  npm ci
+RUN  npm -g install
 
 RUN echo "ls after npm install" && \
     ls $HOME && \
