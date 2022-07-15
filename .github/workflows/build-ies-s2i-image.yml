@@ -6,7 +6,7 @@ on:
       - ies-s2i-nodejs-container
     paths:
       - ".github/workflows/build-ies-s2i-image.yml"
-      - "14"
+      - "14/**"
       - "16"
       - "ddk.txt"
   workflow_dispatch:
@@ -14,7 +14,7 @@ on:
 env:
     IMAGE_NAME: ies-s2i-nodejs-container
     IMAGE_TAGS: dev ${{ github.sha }}
-    IMAGE_REGISTRY: ghcr.io/govalta
+    IMAGE_REGISTRY: ghcr.io/david-kerins
     REGISTRY_USER: ${{ github.actor }}
     REGISTRY_PASSWORD: ${{ github.token }}
 
