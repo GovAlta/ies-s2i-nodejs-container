@@ -1,4 +1,4 @@
-FROM quay.io/centos7/s2i-core-centos7
+FROM ghcr.io/govalta/ies-s2i-nodejs-container:dev
 USER root
 # This image provides a Node.JS environment you can use to run your Node.JS
 # applications.
@@ -35,17 +35,6 @@ that run across distributed devices." \
     X_SCLS=rh-nodejs$NODEJS_VERSION \
     MANPATH=/opt/rh/rh-nodejs$NODEJS_VERSION/root/usr/share/man
 
-
-
-RUN yum install -y centos-release-scl-rh && \
-    MODULE_DEPS="make gcc gcc-c++ git openssl-devel" && \
-    INSTALL_PKGS="$MODULE_DEPS rh-nodejs${NODEJS_VERSION} rh-nodejs${NODEJS_VERSION}-npm rh-nodejs${NODEJS_VERSION}-nodejs-nodemon nss_wrapper ghostscript libgs libgs-devel" && \
-    ln -s /usr/lib/node_modules/nodemon/bin/nodemon.js /usr/bin/nodemon && \
-    yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
-    rpm -V $INSTALL_PKGS && \
-    yum -y clean all --enablerepo='*'
-
-
 # Copy extra files to the image, including help file.
 # COPY ./root/ /
 
@@ -55,52 +44,18 @@ RUN echo "ls before npm install" && \
 	pwd && \
     ls -R ./
 
-COPY ./Containerfile $HOME/
-COPY ./package.json $HOME/
+COPY ./apps/caseload-management/caseload-management-service/* $HOME/
+#COPY ./package.json $HOME/
 RUN sed -i 's/postinstall/donotrun/' $HOME/package.json
 RUN grep donotrun $HOME/package.json
-#COPY ./package-lock.json $HOME/
-#COPY ./decorate-angular-cli.js $HOME/
+
+RUN echo "mv node_modules to /tmp/artifacts and tidy up" && \
+    ls /tmp/artifacts && \
+	mv /tmp/artifacts/node_modules $HOME/
 
 RUN echo "ls after package.json copy" && \
     echo $HOME && \
-	ls -R $HOME
-
-RUN echo "location of npm global" && \
-    npm root -g && \
-	npm root
-
-RUN  npm install -g @nrwl/cli@12.9.0
-RUN  npm install -g @nrwl/workspace@12.9.0
-
-RUN echo "ls after nrwl/cli copy" && \
-    echo $HOME && \
-	ls -R $HOME && \
-	du -sh /opt/rh/rh-nodejs14/root/usr/lib/node_modules
-
-RUN  npm install node-gyp
-
-RUN echo "ls after node-gyp" && \
-    echo $HOME && \
-	ls -R $HOME && \
-	du -sh $HOME/node_modules
-
-RUN echo "ls opt/rh/rh-nodejs14" && \
-    ls -ld /opt/rh/rh-nodejs14/root/usr/lib/node_modules
-
-RUN  npm install
-
-RUN echo "ls after npm install" && \
-    ls $HOME && \
-    ls $HOME/node_modules && \
-	du -sh $HOME/node_modules
-
-RUN echo "mv node_modules to /tmp/artifacts and tidy up" && \
-    mkdir -p /tmp/artifacts && \
-    mv $HOME/node_modules /tmp/artifacts/ && \
-	rm $HOME/package.json && \
-	ls /tmp/artifacts
-	#rm $HOME/package-lock.json
+	ls -a $HOME
 
 # Drop the root user and make the content of /opt/app-root owned by user 1001
 RUN chown -R 1001:0 ${APP_ROOT} && chmod -R ug+rwx ${APP_ROOT} && \
@@ -110,3 +65,5 @@ USER 1001
 
 # Set the default CMD to print the usage of the language image
 # CMD $STI_SCRIPTS_PATH/usage
+
+ENTRYPOINT "npm run ./main.js"
