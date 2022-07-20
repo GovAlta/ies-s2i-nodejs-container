@@ -53,7 +53,7 @@ RUN echo "ls before npm install" && \
     echo $HOME && \
 	ls $HOME && \
 	pwd && \
-    ls -R ./
+    ls -a ./
 
 COPY ./Containerfile $HOME/
 COPY ./package.json $HOME/
@@ -64,29 +64,27 @@ RUN grep donotrun $HOME/package.json
 
 RUN echo "ls after package.json copy" && \
     echo $HOME && \
-	ls -R $HOME
+	ls $HOME
 
 RUN echo "location of npm global" && \
     npm root -g && \
+	du -sh /opt/app-root/src/.npm-global/lib/node_modules && \
 	npm root
 
 RUN  npm install -g @nrwl/cli@12.9.0
 RUN  npm install -g @nrwl/workspace@12.9.0
+RUN  npm install -g node-gyp
+
 
 RUN echo "ls after nrwl/cli copy" && \
     echo $HOME && \
-	ls -R $HOME && \
-	du -sh /opt/rh/rh-nodejs14/root/usr/lib/node_modules
+	ls $HOME && \
+	du -sh /opt/app-root/src/.npm-global/lib/node_modules
 
-RUN  npm install node-gyp
-
-RUN echo "ls after node-gyp" && \
+RUN echo "ls before npm install" && \
     echo $HOME && \
-	ls -R $HOME && \
+	ls $HOME && \
 	du -sh $HOME/node_modules
-
-RUN echo "ls opt/rh/rh-nodejs14" && \
-    ls -ld /opt/rh/rh-nodejs14/root/usr/lib/node_modules
 
 RUN  npm install
 

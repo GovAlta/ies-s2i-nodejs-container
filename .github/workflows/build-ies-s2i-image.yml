@@ -30,7 +30,7 @@ jobs:
     - name: List Directory Contents
       run: |
         pwd
-        ls -laR ./14
+        ls -la ./14
 
     - name: Buildah Action
       id: build_image
