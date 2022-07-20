@@ -59,8 +59,6 @@ COPY ./Containerfile $HOME/
 COPY ./package.json $HOME/
 RUN sed -i 's/postinstall/donotrun/' $HOME/package.json
 RUN grep donotrun $HOME/package.json
-#COPY ./package-lock.json $HOME/
-#COPY ./decorate-angular-cli.js $HOME/
 
 RUN echo "ls after package.json copy" && \
     echo $HOME && \
@@ -83,7 +81,6 @@ RUN echo "ls after nrwl/cli copy" && \
 RUN echo "ls before npm install" && \
     echo $HOME && \
 	ls $HOME && \
-	du -sh $HOME/node_modules
 
 RUN  npm install
 
