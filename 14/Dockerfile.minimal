@@ -68,7 +68,6 @@ RUN echo "ls after package.json copy" && \
 
 RUN echo "location of npm global" && \
     npm root -g && \
-	du -sh /opt/app-root/src/.npm-global/lib/node_modules && \
 	npm root
 
 RUN  npm install -g @nrwl/cli@12.9.0
