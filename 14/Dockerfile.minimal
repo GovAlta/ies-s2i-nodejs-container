@@ -80,7 +80,7 @@ RUN echo "ls after nrwl/cli copy" && \
 
 RUN echo "ls before npm install" && \
     echo $HOME && \
-	ls $HOME && \
+	ls $HOME
 
 RUN  npm install
 
