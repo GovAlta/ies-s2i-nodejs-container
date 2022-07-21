@@ -91,11 +91,11 @@ RUN echo "ls after npm install" && \
     ls $HOME/node_modules && \
 	du -sh $HOME/node_modules
 
-RUN echo "mv node_modules to /tmp/artifacts and tidy up" && \
-    mkdir -p /tmp/artifacts && \
-    mv $HOME/node_modules /tmp/artifacts/ && \
-	rm $HOME/package.json && \
-	ls /tmp/artifacts
+#RUN echo "mv node_modules to /tmp/artifacts and tidy up" && \
+    #mkdir -p /tmp/artifacts && \
+    #mv $HOME/node_modules /tmp/artifacts/ && \
+	#rm $HOME/package.json && \
+	#ls /tmp/artifacts
 	#rm $HOME/package-lock.json
 
 # Drop the root user and make the content of /opt/app-root owned by user 1001
