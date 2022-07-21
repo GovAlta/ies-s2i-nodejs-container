@@ -53,7 +53,9 @@ RUN echo "ls before npm install" && \
     echo $HOME && \
 	ls $HOME && \
 	pwd && \
-    ls -a ./
+    ls -a ./ && \
+	echo $GS4JS_HOME && \
+	ls $GS4JS_HOME
 
 COPY ./Containerfile $HOME/
 COPY ./package.json $HOME/
@@ -81,6 +83,7 @@ RUN echo "ls before npm install" && \
     echo $HOME && \
 	ls $HOME
 
+RUN export GS4JS_HOME=/usr/lib64
 RUN  npm install
 
 RUN echo "ls after npm install" && \
