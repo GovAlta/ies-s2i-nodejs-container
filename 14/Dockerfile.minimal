@@ -84,7 +84,7 @@ RUN echo "ls before npm install" && \
 	ls $HOME
 
 RUN export GS4JS_HOME=/usr/lib64
-RUN  npm install
+RUN  npm install --unsafe-perm
 
 RUN echo "ls after npm install" && \
     ls $HOME && \
