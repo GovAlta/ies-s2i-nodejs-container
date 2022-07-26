@@ -57,7 +57,6 @@ RUN echo "ls before npm install" && \
 	echo $GS4JS_HOME && \
 	ls $GS4JS_HOME
 
-COPY ./Containerfile $HOME/
 COPY ./package.json $HOME/
 RUN sed -i 's/postinstall/donotrun/' $HOME/package.json
 RUN grep donotrun $HOME/package.json
@@ -88,7 +87,7 @@ RUN  npm install -s --unsafe-perm
 
 RUN echo "ls after npm install" && \
     ls $HOME && \
-    ls $HOME/node_modules && \
+    ls -ld $HOME/node_modules && \
 	du -sh $HOME/node_modules
 
 #RUN echo "mv node_modules to /tmp/artifacts and tidy up" && \
